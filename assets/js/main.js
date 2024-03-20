@@ -137,7 +137,7 @@ const getStates = () => ({
 })
 
 
-//////////////// Form Inline ////////////
+///////////////////////////////////// Form Inline ////////////////////////////////////////////////
 const getSales = () => ({
     urlSale: 'http://localhost:3000/sales',
     urlProduct: 'http://localhost:3000/products',
