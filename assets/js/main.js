@@ -230,17 +230,18 @@ const getSales = () => ({
             'price': null
         }];
     },
-
-
-    resetPage() {
-        // Limpa a lista e adiciona uma nova linha
-        this.sales = [{
-            'product': '',
-            'quantity': null,
-            'price': null
-        }];
+    async deleteAllSales() {
+        fetch(`http://localhost:3000/sales`, {
+            method: 'DELETE',
+        })
+            .then(response => response.json())
+            .then(data => {
+                this.getData(); // Atualiza os dados exibidos na página após a deleção
+            })
+            .catch(error => {
+                console.error('Erro ao deletar vendas:', error);
+            });
     },
-
 
     total() {
         return this.sales.reduce((acc, sale) => {
