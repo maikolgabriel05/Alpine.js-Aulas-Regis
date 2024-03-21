@@ -523,14 +523,9 @@
                                                 >
                                             </td>
                                             <td>
-                                                <i
-                                                        class="fa fa-times has-text-danger"
-                                                        @click="deleteSale(sale.id)"
-                                                ></i>
-                                                <!-- Meu td com o "RemoveRow, funcional"-->
-                                                <!-- <td>-->
-                                                <!-- <i class="fa fa-times has-text-danger" @click="removeRow(index)"></i>-->
-                                                <!-- </td>-->
+                                                <i class="fa fa-times has-text-danger"
+                                                   @click="removeRow(index)"></i>
+                                            </td>
                                             <td
                                                     class="has-text-right"
                                                     x-text="(sale.quantity * sale.price).toFixed(2)"
