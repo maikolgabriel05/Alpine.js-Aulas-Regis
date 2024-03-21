@@ -185,35 +185,28 @@ const getSales = () => ({
             'price': null
         })
     },
-    // RemoveRow, delete de linhas funcioanl. //
-    // removeRow() {
-    // Verifica se há pelo menos uma linha para remover
-    // if (this.sales.length > 0) {
-    // Remove a última linha do array
-    //         this.sales.pop();
-    //     }
-    // },
+    removeRow() {
+        // Verifica se há pelo menos uma linha para remover
+        if (this.sales.length > 0) {
+            // Remove a última linha do array
+            this.sales.pop();
+        }
+    },
 
-
-    // FindProduct do commit do regis //
     findProduct(product, index) {
         const item = this.products.find(item => {
-            return item.id == product
-            return item.id === parseInt(product)
-        })
-        if (item) this.sales[index].price = item.price
+            return item.id === product;
+        });
+        if (item) this.sales[index].price = item.price;
     },
 
 
     async saveData() {
         for (const item of this.sales) {
             if (!item.product) {
-                this.required = true
-                return
+                this.required = true;
+                return;
             }
-
-            // Só para manter o que está na tabela.
-            await this.deleteSale(item.id)
 
             const response = await fetch('http://localhost:3000/sales', {
                 method: 'POST',
@@ -223,19 +216,31 @@ const getSales = () => ({
                     quantity: parseInt(item.quantity),
                     price: parseFloat(item.price),
                 })
-            })
-            const data = await response.json()
-            this.getData()
+            });
+            const data = await response.json();
         }
+
+        // Exibir o popup de sucesso
+        this.showSuccessPopup = true;
+
+        // Limpar a lista de vendas
+        this.sales = [{
+            'product': '',
+            'quantity': null,
+            'price': null
+        }];
     },
 
-    async deleteSale(id) {
-        const response = await fetch(`http://localhost:3000/sales/${id}`, {
-            method: 'DELETE',
-        })
-        const data = await response.json()
-        this.getData()
+
+    resetPage() {
+        // Limpa a lista e adiciona uma nova linha
+        this.sales = [{
+            'product': '',
+            'quantity': null,
+            'price': null
+        }];
     },
+
 
     total() {
         return this.sales.reduce((acc, sale) => {
